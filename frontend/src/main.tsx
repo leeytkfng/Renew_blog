@@ -13,7 +13,7 @@ createRoot(document.getElementById('root')!).render(
 )
 
 /**
- * 오류 #1 발생한이유 jsx -> ReactNode 로 변
+ * 오류 #1 발생한이유 jsx -> ReactNode 로 변환문제
  * react-jsx 자동 jsx 변환이 설정이 되어있어도
  * React.StrictMode같이 React 네임스페이스가 필요한 경우에는 import React 설정이 없을경우 깨짐.
  */
