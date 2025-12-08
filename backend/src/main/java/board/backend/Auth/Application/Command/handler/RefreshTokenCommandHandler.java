@@ -17,7 +17,7 @@ public class RefreshTokenCommandHandler {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public TokenResponse handle(RefreshTokenCommand command) {
         log.info("RefreshTokenCommand 처리 시작 ");
 
