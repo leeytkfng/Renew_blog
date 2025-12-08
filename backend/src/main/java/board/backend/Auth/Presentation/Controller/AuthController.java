@@ -1,9 +1,18 @@
 package board.backend.Auth.Presentation.Controller;
 
+import board.backend.Auth.Application.Command.LoginCommand;
+import board.backend.Auth.Application.Command.SignUpCommand;
+import board.backend.Auth.Application.Command.handler.LoginCommandHandler;
+import board.backend.Auth.Application.Command.handler.RefreshTokenCommandHandler;
+import board.backend.Auth.Application.Command.handler.SignUpCommandHandler;
+import board.backend.Auth.Application.Dto.Login.LoginRequest;
+import board.backend.Auth.Application.Dto.Login.LoginResponse;
+import board.backend.Auth.Application.Dto.SignUp.SignUpRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -11,20 +20,66 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
+@Slf4j
 public class AuthController {
+    private final LoginCommandHandler loginCommandHandler;
+    private final SignUpCommandHandler signUpCommandHandler;
+    private final RefreshTokenCommandHandler refreshTokenCommandHandler;
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        log.info("┌─ [API Request] POST /api/auth/login - Email: {}", request.getEmail());
 
-    @GetMapping("/test")
-    public ResponseEntity<Map<String, Object>> test() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "success");
-        response.put("message", "Auth API is working!");
-        response.put("timestamp", LocalDateTime.now());
+        try {
+            //Request -> Command 형식으로 변환한다.
+            LoginCommand command = new LoginCommand(
+                    request.getEmail(),
+                    request.getPassword()
+            );
 
-        return ResponseEntity.ok(response);
+            //Command Handler 실행
+            LoginResponse response  = loginCommandHandler.handle(command);
+
+            log.info("└─ [API Response] POST /api/auth/login - Success");
+            return ResponseEntity.ok(response);
+        }catch (IllegalArgumentException e) {
+            log.error("└─ [API Response] POST /api/auth/login - Validation Error: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("└─ [API Response] POST /api/auth/login - Error: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
-    @GetMapping("/health")
-    public ResponseEntity<String> health() {
-        return ResponseEntity.ok("OK");
+    @PostMapping("/signup")
+    public ResponseEntity<Map<String, String>> signUp(@RequestBody SignUpRequest request) {
+        try {
+            //Request -> Command 변환
+            SignUpCommand command = new SignUpCommand(
+                    request.getEmail(),
+                    request.getPassword(),
+                    request.getName(),
+                    request.getPhone(),
+                    request.getAddress()
+            );
+
+            //Command Hanlder 실행
+            signUpCommandHandler.handler(command);
+
+            log.info("└─ [API Response] POST /api/auth/signup - Success");
+
+            Map<String,String> response = new HashMap<>();
+            response.put("message", "회원가입이 완료되었습니다");
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        } catch (IllegalArgumentException e) {
+            log.error("└─ [API Response] POST /api/auth/signup - Validation Error: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("└─ [API Response] POST /api/auth/signup - Error: {}", e.getMessage(), e);
+            throw e;
+        }
+
     }
 }

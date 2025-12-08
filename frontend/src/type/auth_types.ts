@@ -4,13 +4,17 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    accessToken: string;
-    refreshToken: string;
-    user: UserInfo;
+    token : {
+        accessToken: string;
+        refreshToken: string;
+    }
+    userId: string;
+    email: string;
+    name: string;
 }
 
 export interface UserInfo {
-    id: number;
+    userId: string;
     email: string;
     name: string;
 }
@@ -29,10 +33,15 @@ export interface SignupResponse {
     message: string;
 }
 
-export interface AuthToken {
+export interface RefreshTokenRequest {
+    refreshToken: string;
+}
+
+export interface RefreshTokenResponse {
     accessToken: string;
     refreshToken: string;
 }
+
 
 export enum AuthStatus {
     AUTHENTICATED = 'AUTHENTICATED',

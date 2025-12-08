@@ -50,8 +50,9 @@ axiosInstance.interceptors.response.use(
                     { headers: { Authorization: `Bearer ${refreshToken}` }}
                 );
 
-                const { accessToken } = response.data;
+                const { accessToken ,refreshToken : newRefreshToken } = response.data;
                 localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', newRefreshToken);
 
                 originalRequest.headers = originalRequest.headers || {};
                 originalRequest.headers.Authorization = `Bearer ${accessToken}`;
@@ -63,6 +64,9 @@ axiosInstance.interceptors.response.use(
                 return Promise.reject(refreshError);
             }
         }
+
+        const errorMessage = error.response?.data?.message || error.message;
+        console.log('API Error :' , errorMessage);
 
         return Promise.reject(error);
     }

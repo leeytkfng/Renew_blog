@@ -1,6 +1,9 @@
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import LoginPage from "./pages/LoginPage.tsx";
+import LoginPage from "./pages/auth/LoginPage.tsx";
 import React from "react";
+import SignUp from "./pages/auth/SignUp.tsx";
+import MainPage from "./pages/MainAuction.tsx";
+import Layout from "./components/layout/Layout.tsx";
 
 function App() : React.ReactElement {
 
@@ -8,7 +11,10 @@ function App() : React.ReactElement {
       <div>
           <div>
               <Routes>
-                  <Route path="/" element={<LoginPage/>} />
+                  <Route path="/login" element={<LoginPage/>} />
+                  <Route path="/signup" element={<SignUp/>}/>
+
+                  <Route path="/" element={<Layout><MainPage/></Layout>} />
               </Routes>
           </div>
       </div>
