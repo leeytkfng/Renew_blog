@@ -1,9 +1,8 @@
-package board.backend.Auth.Domain.Model.Value;
+package board.backend.Auth.Domain.Model.Vo;
 
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 

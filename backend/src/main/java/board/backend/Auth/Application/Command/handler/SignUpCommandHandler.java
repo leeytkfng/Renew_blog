@@ -2,18 +2,13 @@ package board.backend.Auth.Application.Command.handler;
 
 import board.backend.Auth.Application.Command.SignUpCommand;
 import board.backend.Auth.Domain.Model.Entity.User;
-import board.backend.Auth.Domain.Model.Value.Email;
-import board.backend.Auth.Domain.Model.Value.Password;
-import board.backend.Auth.Domain.Model.Value.UserId;
+import board.backend.Auth.Domain.Model.Vo.Email;
 import board.backend.Auth.Domain.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

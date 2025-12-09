@@ -2,8 +2,8 @@ package board.backend.Auth.Infrastructure.Persistence;
 
 import board.backend.Auth.Domain.Model.Entity.User;
 import board.backend.Auth.Domain.Model.Enum.UserStatus;
-import board.backend.Auth.Domain.Model.Value.Email;
-import board.backend.Auth.Domain.Model.Value.UserId;
+import board.backend.Auth.Domain.Model.Vo.Email;
+import board.backend.Auth.Domain.Model.Vo.UserId;
 import board.backend.Auth.Infrastructure.Entity.UserMongoEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -40,7 +40,8 @@ public class UserMapper {
         return entity;
     }
     public User toDomain(UserMongoEntity entity) {
-        return User.reconstitute( UserId.of(entity.getId()),
+        return User.reconstitute(
+                UserId.of(entity.getId()),
                 new Email(entity.getEmail()),
                 entity.getPassword(),
                 entity.getName(),

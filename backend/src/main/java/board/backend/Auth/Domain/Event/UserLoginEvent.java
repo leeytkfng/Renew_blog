@@ -1,6 +1,6 @@
 package board.backend.Auth.Domain.Event;
 
-import board.backend.Auth.Domain.Model.Value.UserId;
+import board.backend.Auth.Domain.Model.Vo.UserId;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

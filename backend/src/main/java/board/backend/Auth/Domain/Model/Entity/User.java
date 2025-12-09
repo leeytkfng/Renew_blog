@@ -1,9 +1,9 @@
 package board.backend.Auth.Domain.Model.Entity;
 
 import board.backend.Auth.Domain.Exception.UserNotActiveException;
-import board.backend.Auth.Domain.Model.Value.Email;
-import board.backend.Auth.Domain.Model.Value.Password;
-import board.backend.Auth.Domain.Model.Value.UserId;
+import board.backend.Auth.Domain.Model.Vo.Email;
+import board.backend.Auth.Domain.Model.Vo.Password;
+import board.backend.Auth.Domain.Model.Vo.UserId;
 import board.backend.Auth.Domain.Model.Enum.UserStatus;
 import lombok.Getter;
 
@@ -116,11 +116,6 @@ public class User {
             throw new UserNotActiveException("사용자 계정이 활성화되지 않았습니다. 상태:" + this.status.getDescription());
         }
     }
-    //비즈니스 로직 - 로그인 성공 기록
-    public void recordSuccessFulLogin() {
-        this.lastLoginAt = LocalDateTime.now();
-    }
-
 
     private static void validateName(String name) {
         if (name == null || name.isBlank()) {

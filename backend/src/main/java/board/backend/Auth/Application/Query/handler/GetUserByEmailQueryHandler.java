@@ -2,7 +2,7 @@ package board.backend.Auth.Application.Query.handler;
 
 import board.backend.Auth.Application.Query.GetUserByEmailQuery;
 import board.backend.Auth.Domain.Model.Entity.User;
-import board.backend.Auth.Domain.Model.Value.Email;
+import board.backend.Auth.Domain.Model.Vo.Email;
 import board.backend.Auth.Domain.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

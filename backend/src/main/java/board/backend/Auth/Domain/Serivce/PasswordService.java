@@ -1,7 +1,7 @@
 package board.backend.Auth.Domain.Serivce;
 
 import board.backend.Auth.Domain.Exception.InvalidPasswordException;
-import board.backend.Auth.Domain.Model.Value.Password;
+import board.backend.Auth.Domain.Model.Vo.Password;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

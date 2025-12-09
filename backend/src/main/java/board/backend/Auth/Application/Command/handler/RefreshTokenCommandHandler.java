@@ -2,7 +2,7 @@ package board.backend.Auth.Application.Command.handler;
 
 import board.backend.Auth.Application.Command.RefreshTokenCommand;
 import board.backend.Auth.Application.Dto.Token.TokenResponse;
-import board.backend.Auth.Domain.Model.Value.UserId;
+import board.backend.Auth.Domain.Model.Vo.UserId;
 import board.backend.Auth.Domain.Repository.UserRepository;
 import board.backend.Auth.Infrastructure.Security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;

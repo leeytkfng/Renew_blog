@@ -1,8 +1,7 @@
-package board.backend.Auth.Domain.Model.Value;
+package board.backend.Auth.Domain.Model.Vo;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Value Object -> 식별자는 없고 값으로만 구분되는 객체

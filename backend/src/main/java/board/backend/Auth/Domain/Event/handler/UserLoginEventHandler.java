@@ -18,10 +18,16 @@ public class UserLoginEventHandler {
 
     @Async
     @EventListener
-    @Transactional
+    @Transactional(readOnly = true)
     public void handleUserLogin(UserLoginEvent event) {
         log.debug(">>> [event] UserLoginEvent 수신 - UserId: {} . Email: {}",
                 event.getUserId().getValue(), event.getEmail() );
+
+        log.info("========================================");
+        log.info(">>> [Handler] LoginCommand 처리 시작");
+        log.info(">>> [Handler] Email: {}", event.getEmail());
+        log.info("========================================");
+
 
         try {
             User user = userRepository.findById(event.getUserId())

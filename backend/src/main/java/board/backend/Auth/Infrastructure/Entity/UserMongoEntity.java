@@ -59,8 +59,8 @@ public class UserMongoEntity {
     //생성자
     public UserMongoEntity(String id, String email, String password, String name,
                          String phone, String address, String status,
-                         LocalDateTime createdAt, LocalDateTime deletedAt, String ipAddress,
-                         LocalDateTime lastLoginAt, String platform) {
+                         LocalDateTime createdAt, LocalDateTime lastLoginAt, String ipAddress,
+                         LocalDateTime deletedAt, String platform) {
         this.id = id;
         this.email = email;
         this.password = password;
