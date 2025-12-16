@@ -1,5 +1,7 @@
 package board.backend.global;
 
+import board.backend.Auth.Infrastructure.Security.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -16,7 +19,10 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     /**
      * Spring Security에서 Http 요청을 처리할 때 거치는 필터들의 체인이다.
@@ -38,10 +44,16 @@ public class SecurityConfig {
                 //권한 설정( 중요!)
                 .authorizeHttpRequests(auth -> auth
                     //인증 없이 접근 가능한 경로
-                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        // 경매 조회는 누구나 가능, 등록/입찰은 인증 필요
+                        .requestMatchers("/api/auctions").permitAll()  // GET 목록
+                        .requestMatchers("/api/auctions/*").permitAll()  // GET 상세
+                        .requestMatchers("/api/auctions/**").authenticated()  // POST, PUT, DELETE
                         //그외 경로는 인증 절차를  밟음
                         .anyRequest().authenticated()
-                );
+                )
+                //Jwt 필터 추가 적용
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

@@ -1,6 +1,7 @@
 package board.backend.Auction.Application.Command;
 
-import lombok.AllArgsConstructor;
+import board.backend.Auction.Domain.Model.Aggregate.Auction;
+import board.backend.Auction.Domain.Model.Value.AuctionId;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
  */
 @Getter
 @RequiredArgsConstructor
-public class PlaceVidCommand {
+public class PlaceBidCommand {
     private final String auctionId;
-    private final BigDecimal bigDecimal;
+    private final BigDecimal bidAmount;
 }

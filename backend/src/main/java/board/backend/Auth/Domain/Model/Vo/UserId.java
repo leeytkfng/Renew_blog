@@ -22,6 +22,7 @@ public class UserId {
         return new UserId(value);
     }
 
+
     public static UserId generate() {
         return new UserId(UUID.randomUUID().toString());
     }

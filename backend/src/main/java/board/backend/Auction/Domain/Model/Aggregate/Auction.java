@@ -77,12 +77,22 @@ public class Auction {
     }
 
 
-    //팩토리 메서드 : DB에서 복원
+    //팩토리 메서드 -> DB에 저장된 데이터를 도메인 객체로 복원한다.
     public static Auction reconstitute(AuctionId id, Property property, Money startPrice,
                                        Money currentPrice, UserId sellerId, AuctionStatus status,
                                        LocalDateTime startTime, LocalDateTime endTime , List<Bid> bids, LocalDateTime createdAt) {
        return new Auction(id, property, startPrice, currentPrice, sellerId,
                status,startTime,endTime,new ArrayList<>(bids), createdAt);
+    }
+
+    //  from() 메서드 추가 (reconstitute의 별칭) -> 일반적인 변환 패턴
+    // 주어진 파라미터로부터 객체를 만든다.
+    public static Auction from(AuctionId id, Property property, Money startPrice,
+                               Money currentPrice, UserId sellerId, AuctionStatus status,
+                               LocalDateTime startTime, LocalDateTime endTime,
+                               List<Bid> bids, LocalDateTime createdAt) {
+        return reconstitute(id, property, startPrice, currentPrice, sellerId,
+                status, startTime, endTime, bids, createdAt);
     }
 
     //비즈니스 로직 :입찰하기
